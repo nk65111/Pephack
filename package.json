@@ -1,0 +1,19 @@
+{
+  "name": "pep_hack",
+  "version": "1.0.0",
+  "description": "job_finder",
+  "main": "index.js",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.6",
+    "express": "^4.17.1",
+    "hbs": "^4.1.1",
+    "puppeteer": "^8.0.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}

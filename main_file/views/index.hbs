@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <title>Job Search</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        header{
+            width: 100%;
+            height: 25vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: aquamarine;
+        }
+        header input{
+            min-width: 420px;
+        }
+        .shadow{
+            box-shadow: 3px 3px 15px rgba(0,0,0,0.3);
+            max-width: 420px;
+            margin: 30px 10px;
+            border-radius: 10px;
+        }
+        h4{
+            font-weight: 600;
+        }
+        
+    </style>
+  </head>
+  <body>
+
+    <header>
+
+        <div class="inputBx">
+                <input type="text" id="jobname" name="jobname" class="form-control p-4" placeholder="Type Something To Your Interested Jobs Lists" onkeyup="searchByName()" />
+        </div>
+
+    </header>
+
+    <div class="container-fluid p-5">
+       <div id="result" class="row px-4 d-flex justify-content-around flex-wrap">
+           
+           </div>
+       </div>
+    </div>
+
+    <script>
+
+        var jobList = [];
+
+fetch('http://localhost:8000/jobs')
+.then(response => response.json())
+.then(data => {
+    jobList = data;
+    display(jobList);
+})
+
+
+function display(job) {
+var cards = '';
+    for (var i = 0; i < job.length; i++) {
+        cards = cards + ` <div class="col-lg-4 py-4 px-5 shadow">
+                <h4>${job[i].title}</h4>
+                <h5 class="pt-2">${job[i].company}</h5>
+                <h5>${job[i].location}</h5>
+                <p>${job[i].responsibility}</p>
+                    <a class="btn btn-outline-success mb-2" href="${job[i].applyLink}" target="_blank">Apply Now</a>
+           </div>`;
+    }
+
+    var result = document.getElementById('result');
+    result.innerHTML = cards;
+}
+
+
+function searchByName() {
+    var searchName = document.getElementById("jobname");
+    var searchValue = searchName.value;
+    // console.log(searchValue);
+
+    var newJobList = [];
+    for (var i = 0; i < jobList.length; i++) {
+        if (jobList[i].title.toUpperCase().includes(searchValue.toUpperCase()) === true) {
+            newJobList.push(jobList[i]);
+        }
+    }
+
+    display(newJobList);
+}
+    
+
+    </script>
+
+</body>
+</html>
